@@ -90,7 +90,7 @@
 
 %%%% 利用tikz来定位照片
 \begin{tikzpicture}[remember picture, overlay] 
-    \node[anchor = north east] at ($(current page.north east)+(0 cm,-1.2cm)$) {\includegraphics[height=3cm]{yxl.jpg}};
+    \node[anchor = north east] at ($(current page.north east)+(-2.0 cm,0.0cm)$) {\includegraphics[height=3cm]{yxl.jpg}};
   \end{tikzpicture}%
   %%%% 利用tikz来定位学校Logo，这里只在第一页显示
   \begin{tikzpicture}[remember picture, overlay] 
@@ -102,10 +102,10 @@
 
     
 \section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faGraduationCap}\ 教育背景}    
-\textbf{浙江大学} \hfill 本科\\[0.5em] % 标题和正文间加一点距离
-控制科学与工程专业 2020.9-2024.6
-\textbf{浙江大学} \hfill 硕士\\[0.5em] % 标题和正文间加一点距离
-控制工程专业  2024.9-至今
+\textbf{浙江大学} \hfill \\[0.5em] % 标题和正文间加一点距离
+控制科学与工程专业 本科 2020.9-2024.6
+\\[0.5em] % 标题和正文间加一点距离
+控制工程专业  硕士 2024.9-至今
 
 
 \section{\makebox[\widthof{\faCogs}][c]{\color{CVBlue}\faCogs}\ 专业技能}
@@ -134,24 +134,24 @@
 
 \textbf{华电电控平台故障诊断算法开发} \hfill 2024.06 -- 2024.11 \titlebreak
 \begin{itemize}[nosep, topsep=\intraProjectListTopSep]
-    \item 设计多种电气故障诊断算法，完成算法实现与验证
-    \item 参与工业电控平台算法集成，适配工业场景落地
+    \item 设计多种电气故障诊断算法，完成算法实现与验证，参与工业电控平台算法集成，适配工业场景落地
+    \item \textbf{个人工作：}各种故障诊断、预测算法
 \end{itemize}
 
 \projectsep
 
 \textbf{基于图像的地下管廊渗水识别算法研究（毕业设计）} \hfill 2024.02 -- 2025.04 \titlebreak
 \begin{itemize}[nosep, topsep=\intraProjectListTopSep]
-    \item 研发管廊渗水图像智能识别算法
-    \item 成果转化专利 1 篇、软著 1 篇，完成工程化验证
+    \item 研发管廊渗水图像智能识别算法，基于Mask R-CNN实现渗水检测及可视化功能
+    \item \textbf{个人工作：}算法实现，成果转化专利 1 篇、软著 1 篇，完成工程化验证
 \end{itemize}
 
 \textbf{基于大模型的工作票智能生成系统} \hfill 2025.09 -- 至今 \titlebreak
-项目描述：根据电气图纸与安全规程，通过 RAG 检索增强生成技术，实现电气工作票内容的自动化生成与合规校验。
+根据电气图纸与安全规程，通过 RAG 检索增强生成技术，实现电气工作票内容的自动化生成与合规校验。
 \begin{itemize}[nosep, topsep=\intraProjectListTopSep]
     \item \textbf{电路图智能解析：} 基于强化学习实现电气图纸连接关系识别与解析，构建设备拓扑结构。
     \item \textbf{RAG 检索系统：} 构建安全规程、历史工作票知识库，实现精准检索与大模型生成结合。
-    \item \textbf{核心功能：} 完成图纸理解 → 规则匹配 → 工作票自动生成全流程，提升开票效率与合规性。
+    \item \textbf{个人工作：} 电路图智能解析（强化学习）、RAG检索、Prompt优化
 \end{itemize}
 
 \end{document}
