@@ -90,7 +90,7 @@
 
 %%%% 利用tikz来定位照片
 \begin{tikzpicture}[remember picture, overlay] 
-    \node[anchor = north east] at ($(current page.north east)+(-2.0 cm,0.0cm)$) {\includegraphics[height=3cm]{yxl.jpg}};
+    \node[anchor = north east] at ($(current page.north east)+(-2.0 cm,-0.3cm)$) {\includegraphics[height=3cm]{yxl.jpg}};
   \end{tikzpicture}%
   %%%% 利用tikz来定位学校Logo，这里只在第一页显示
   \begin{tikzpicture}[remember picture, overlay] 
@@ -146,9 +146,11 @@
     \item \textbf{个人工作：}算法实现，成果转化专利 1 篇、软著 1 篇，完成工程化验证
 \end{itemize}
 
+\projectsep
+
 \textbf{基于大模型的工作票智能生成系统} \hfill 2025.09 -- 至今 \titlebreak
-根据电气图纸与安全规程，通过 RAG 检索增强生成技术，实现电气工作票内容的自动化生成与合规校验。
 \begin{itemize}[nosep, topsep=\intraProjectListTopSep]
+    \item根据电气图纸与安全规程，通过 RAG 检索增强生成技术，实现电气工作票内容的自动化生成与合规校验。
     \item \textbf{电路图智能解析：} 基于强化学习实现电气图纸连接关系识别与解析，构建设备拓扑结构。
     \item \textbf{RAG 检索系统：} 构建安全规程、历史工作票知识库，实现精准检索与大模型生成结合。
     \item \textbf{个人工作：} 电路图智能解析（强化学习）、RAG检索、Prompt优化
