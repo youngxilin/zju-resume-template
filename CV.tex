@@ -90,7 +90,7 @@
 
 %%%% 利用tikz来定位照片
 \begin{tikzpicture}[remember picture, overlay] 
-    \node[anchor = north east] at ($(current page.north east)+(-2cm,-1.2cm)$) {\includegraphics[height=3cm]{yxl.jpg}};
+    \node[anchor = north east] at ($(current page.north east)+(0 cm,-1.2cm)$) {\includegraphics[height=3cm]{yxl.jpg}};
   \end{tikzpicture}%
   %%%% 利用tikz来定位学校Logo，这里只在第一页显示
   \begin{tikzpicture}[remember picture, overlay] 
@@ -129,11 +129,6 @@
 
 \section{\makebox[\widthof{\faUsers}][c]{\color{CVBlue}\faUsers}\ 项目经历}
 
-\textbf{基于深度学习的垃圾智能检测系统（SRTP 项目）} \hfill 2022.09 -- 2023.06 \titlebreak
-\begin{itemize}[nosep, topsep=\intraProjectListTopSep]
-    \item 基于 YOLOv5 进行模型结构改进，自主采集标注数据集，优化训练策略，模型检测效果提升 8%
-    \item 完成数据采集、标注、训练、验证全流程开发
-\end{itemize}
 
 \projectsep
 
