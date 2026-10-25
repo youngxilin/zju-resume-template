@@ -1,5 +1,7 @@
 % !TeX program = xelatex
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt]{article}
+
+\setlength{\parindent}{0pt}
 
 \usepackage{fontspec}
 \usepackage{xeCJK}
@@ -11,15 +13,18 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usepackage{enumitem}
+\usepackage{relsize}
+\usepackage{xspace}
 \usepackage{fontawesome}
 \usepackage{titlesec}
 
-% ==================== 颜色与链接 ====================
-\definecolor{CVBlue}{RGB}{23,110,191}
 \hypersetup{hidelinks}
 \urlstyle{tt}
+\definecolor{CVBlue}{RGB}{23,110,191}
 
-% ==================== 字体：沿用原文件 ====================
+% ==================== 字体 ====================
+\CJKsetecglue{}
+
 \setmainfont[
   Path=fonts/Main/,
   BoldFont=texgyretermes-bold.otf
@@ -30,33 +35,41 @@
   BoldFont=NotoSansSC-Bold.ttf
 ]{NotoSansSC-Regular.otf}
 
-\CJKsetecglue{}
-
-% ==================== 页面与间距 ====================
+% ==================== 页面设置 ====================
 \usepackage[
   a4paper,
   left=1.2cm,
   right=1.2cm,
-  top=1.2cm,
-  bottom=0.8cm,
-  nohead,
-  nofoot
+  top=1.5cm,
+  bottom=1cm,
+  nohead
 ]{geometry}
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0pt}
-\renewcommand{\baselinestretch}{1.05}
-\setlength{\emergencystretch}{2em}
-\pagestyle{empty}
-\raggedbottom
+\renewcommand{\baselinestretch}{1.5}
 
-\setlist[itemize]{
-  leftmargin=1.2em,
-  labelsep=0.35em,
-  topsep=2pt,
-  itemsep=0pt,
-  parsep=0pt,
-  partopsep=0pt
+% ==================== 列表设置 ====================
+\setlist{noitemsep}
+\setlist[itemize]{topsep=0.25em,leftmargin=*}
+\setlist[enumerate]{topsep=0.25em,leftmargin=*}
+
+% ==================== 项目间距 ====================
+\newlength{\interProjectSpacing}
+\setlength{\interProjectSpacing}{0.9em}
+
+\newlength{\intraProjectTitleSep}
+\setlength{\intraProjectTitleSep}{0.4em}
+
+\newlength{\intraProjectListTopSep}
+\setlength{\intraProjectListTopSep}{0.2em}
+
+% 第一行：时间 + 单位
+% 第二行：项目名称
+\newcommand{\projectheading}[3]{%
+  \par\addvspace{\interProjectSpacing}%
+  \noindent
+  \makebox[4.4cm][l]{#1}\textbf{#2}\par
+  \nobreak\vspace{\intraProjectTitleSep}%
+  \noindent\textbf{#3}\par\nobreak
 }
 
 % ==================== 章节样式 ====================
@@ -65,170 +78,222 @@
   {}{0em}{}
   [{\color{CVBlue}\titlerule}]
 
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-
-\newcommand{\cvsection}[2]{%
-  \section{%
-    \makebox[1.3em][c]{\color{CVBlue}#1}\ #2%
-  }%
-}
-
-% ==================== 项目标题样式 ====================
-\newcommand{\projectheading}[2]{%
-  \par\addvspace{4pt}%
-  \noindent\textbf{#1}\hfill{\small #2}\par
-}
+\titlespacing*{\section}{0cm}{*1.6}{*1.2}
 
 \begin{document}
 
-% ==================== 图片：保留原位置 ====================
+\pagenumbering{gobble}
+
+% ==================== 图片 ====================
 \begin{tikzpicture}[remember picture,overlay]
   \node[anchor=north east]
-    at ($(current page.north east)+(-2.0cm,-0.3cm)$)
-    {\includegraphics[height=3cm]{yxl.jpg}};
-
-  \node[anchor=north west]
-    at ($(current page.north west)+(0.5cm,+1.0cm)$)
-    {\includegraphics[height=6cm]{zju.png}};
+  at ($(current page.north east)+(-2.0cm,-0.3cm)$)
+  {\includegraphics[height=3cm]{yxl.jpg}};
 \end{tikzpicture}%
-%
-% 为顶部图片预留高度，避免教育背景与照片重叠
-\begin{minipage}[c][2.0cm][c]{\textwidth}
-  \centering
-  {\LARGE\bfseries 杨仙林}\par
-  \vspace{5pt}
-  {\normalsize
-    {\color{CVBlue}\faPhone}\ 15828872384
-    \quad
-    {\color{CVBlue}\faEnvelopeO}\
-    \href{mailto:1295510209@qq.com}{1295510209@qq.com}
-  }\par
-  \vspace{3pt}
-  {\small
-    出生日期：2002.10.8
-    \quad
-    求职意向：算法工程师、LLM应用
-  }
-\end{minipage}
-\par
+\begin{tikzpicture}[remember picture,overlay]
+  \node[anchor=north west]
+  at ($(current page.north west)+(0.5cm,+1.0cm)$)
+  {\includegraphics[height=6cm]{zju.png}};
+\end{tikzpicture}%
+
+% ==================== 个人信息 ====================
+\centerline{\LARGE\bfseries 杨仙林}
+
+\centerline{%
+  \normalsize
+  \faPhone\ 15828872384
+  \quad
+  \faEnvelopeO\
+  \href{mailto:1295510209@qq.com}{1295510209@qq.com}
+}
+
+\centerline{%
+  \normalsize
+  出生日期：2002.10.8
+  \quad
+  求职意向：算法工程师、LLM应用
+}
 
 % ==================== 教育背景 ====================
-\cvsection{\faGraduationCap}{教育背景}
+\section{%
+  \makebox[\widthof{\faGraduationCap}][c]{%
+    \color{CVBlue}\faGraduationCap
+  }\ 教育背景
+}
 
-{\renewcommand{\arraystretch}{1.08}
 \noindent
 \begin{tabular*}{\textwidth}{
   @{}l@{\extracolsep{\fill}}lll@{}
 }
-2020.9--2024.6 & 本科 &
-\textbf{浙江大学}控制科学与工程学院 & 自动化 \\
-2024.9--至今 & 硕士 &
-\textbf{浙江大学}工程师学院 & 控制工程
+2020.9--2024.6
+  & 本科
+  & \textbf{浙江大学}控制科学与工程学院
+  & 自动化 \\[0.5em]
+2024.9--至今
+  & 硕士
+  & \textbf{浙江大学}工程师学院
+  & 控制工程
 \end{tabular*}
-\par}
+\par
 
 % ==================== 项目经历 ====================
-\cvsection{\faUsers}{项目经历}
+\section{%
+  \makebox[\widthof{\faUsers}][c]{%
+    \color{CVBlue}\faUsers
+  }\ 项目经历
+}
 
+% 第一个项目未提供单位，第二个参数暂留空
 \projectheading
+  {2025.03 -- 2025.08}
+  {}
   {基于 PatchX-MLP 的 SCR 入口 NOx 浓度预测}
-  {2025.03--2025.08}
 
-\begin{itemize}
+\begin{itemize}[nosep,topsep=\intraProjectListTopSep]
   \item \textbf{项目简介：}
-  融合多变量工业运行数据预测 SCR 入口 NOx 浓度，
-  为脱硝过程运行优化提供依据。
+  面向 SCR 入口 NOx 浓度预测，融合多变量运行数据，
+  建模工况变化与时序依赖，为脱硝过程运行优化提供预测依据。
+
   \item \textbf{技术栈：}
-  Python、PyTorch、MLP、多尺度 Patch、时序分解、时频域联合损失。
+  Python、PyTorch、MLP、多尺度 Patch、时序分解、时频域联合损失
+
   \item \textbf{模型设计：}
-  结合多尺度 Patch 与趋势、季节项分解，
-  通过 MLP 建模 Patch 内、Patch 间及变量间交互，
-  融合局部变化、长期趋势与变量关联。
+  采用多尺度 Patch 分割及趋势与季节项分解，
+  通过 MLP 在 Patch 内、Patch 间及变量间建立交互，
+  实现局部变化、长期趋势与变量关联的多特征融合。
+
   \item \textbf{训练与验证：}
-  完成时频域联合优化及消融实验；
-  工业数据 96 步预测的 MSE/MAE 为
-  \textbf{0.228/0.223}，
-  较 TimeMixer 分别降低 \textbf{6.6\%/5.5\%}。
+  完成时域误差与频域约束的联合优化及消融实验；
+  工业数据 96 步预测的 MSE / MAE 为 0.228 / 0.223，
+  较 TimeMixer 分别降低 6.6\% / 5.5\%。
 \end{itemize}
 
 \projectheading
+  {2025.09 -- 2026.09}
+  {华电电力科学研究院}
   {基于大模型的工作票智能生成系统}
-  {2025.09--2026.09}
 
-\begin{itemize}
+\begin{itemize}[nosep,topsep=\intraProjectListTopSep]
   \item \textbf{项目简介：}
-  面向电气检修任务，编排图纸解析、知识检索、生成与校验流程，
-  辅助生成工作票中的工作内容及安全措施。
+  面向电气检修任务，基于 Dify 搭建 Agent 框架，
+  编排图纸解析、知识检索、内容生成与校验流程，
+  辅助生成工作票中的工作内容与安全措施。
+
   \item \textbf{技术栈：}
-  Python、Dify、LLM Agent、Tool Calling、
-  VL Embedding、SAM、OCR、GraphRAG。
+  Dify、LLM Agent、Tool Calling、VL Embedding、
+  SAM、GraphRAG、Python
+
   \item \textbf{图纸抽取：}
-  利用视觉特征匹配图例与多尺度图块，
-  结合 SAM 分割、OCR 及位置约束，
-  提取设备类别、位置和编号。
-  \item \textbf{检索与编排：}
-  结合实体关系检索与语义召回，关联设备、检修任务、
-  安规条款及历史工作票；封装解析与检索工具，
-  基于来源证据和模板生成内容，设置字段完整性、
-  设备一致性检查及人工复核。
+  利用大模型视觉特征匹配图例与多尺度图块，
+  定位设备候选区域，再以 SAM 细化分割边界；
+  结合 OCR 与位置约束关联设备编号，
+  输出设备类别、位置及标识等结构化信息。
+
+  \item \textbf{图谱检索：}
+  设计设备、检修任务、安规条款与历史工作票的关联检索流程；
+  结合 GraphRAG 的实体关系检索与文本语义召回，
+  组织相关条款及历史案例，并保留来源证据供生成与核验使用。
+
+  \item \textbf{Agent 编排：}
+  将图纸抽取与检索能力封装为可调用工具，
+  通过工作流传递检修范围、设备信息和证据；
+  结合 Prompt 与结构化模板生成票面内容，
+  设置必填项、设备一致性检查及人工复核环节。
+
   \item \textbf{SFT 适配方案：}
-  设计历史工作票指令样本与 LoRA 微调方案，
+  设计基于历史工作票的指令样本与 LoRA 微调方案，
   以“检修任务＋检索证据”为输入、票面字段为输出，
-  规划术语一致性、字段完整性及证据符合性评估。
+  规划术语一致性、字段完整性与证据符合性评估，
+  强化领域表达和格式遵循。
 \end{itemize}
 
 \projectheading
+  {2026.08 -- 2026.10}
+  {华为杭研所}
   {大模型话题与安全检测系统}
-  {2026.08--2026.10}
 
-\begin{itemize}
+\begin{itemize}[nosep,topsep=\intraProjectListTopSep]
   \item \textbf{项目简介：}
-  构建文本与多语种音频检测模块，
-  识别业务话题、提示词注入及有害内容，
+  文本检测：面向 LLM 应用搭建可配置的请求检测模块，
+  识别业务话题、提示词攻击和有害内容，
   为模型调用提供风险判断与路由依据。
+  音频检测：通过对模型 Qwen2.5-Omni-3B 进行 SFT，
+  从内容安全角度和 Prompt 注入攻击角度，
+  实现对于音频模型的多语种输入输出安全检测。
+
   \item \textbf{技术栈：}
   Python、PyTorch、Transformers、预训练编码器、
-  多任务学习、FastAPI、SFT、LoRA、CosyVoice。
+  多任务学习、FastAPI、SFT、LoRA
+
   \item \textbf{文本检测：}
-  基于预训练编码器构建话题、攻击及有害内容分类头，
-  通过掩码损失利用多来源数据的部分标签；
-  完成数据清洗、去重与数据集划分，
-  按误报约束校准阈值，结合白名单制定放行、拒答和复核策略。
-  \item \textbf{音频检测：}
-  对 Qwen2.5-Omni-3B 进行 SFT，
-  检测多语种输入音频的有害内容及提示词注入、
-  输出音频的有害内容；
-  通过 TTS、CosyVoice 合成样本并添加噪声进行数据增强。
-  \item \textbf{工程实现：}
+
+  \item 检测建模：
+  以预训练文本编码器提取语义特征，
+  配置话题、攻击与有害内容分类头；
+  通过掩码损失利用不同来源数据的部分标签，
+  支持检测任务扩展与底层模型替换。
+
+  \item 数据与策略：
+  完成数据清洗、去重及训练、校准、测试集拆分；
+  按误报约束校准阈值，结合话题白名单与风险得分，
+  设计放行、拒答和复核三类决策。
+
+  \item 工程实现：
   封装训练、评估与推理流程，
-  提供文本检测接口，返回类别、分数和触发原因，
-  对低置信度或检测能力缺失的请求设置复核分支。
+  提供检测接口及类别、分数和触发原因；
+  对低置信度或检测能力缺失的请求设置复核分支，
+  便于接入上层应用。
+
+  \item \textbf{音频检测：}
+
+  \item 检测方案：
+  将音频检测分为输入检测和输出检测两大类，
+  输入检测包括内容安全及提示词注入攻击两个维度，
+  输出检测只检测内容安全
+
+  \item 数据生成：
+  将文本数据通过 tts 和 cosyvoice 进行处理生成音频数据，
+  同时添加适量噪声增强训练集泛化性
+
+  \item 工程实现：
+  封装训练、评估与推理流程，
+  得到最终 SFT 后的检测模型
 \end{itemize}
 
 % ==================== 专业技能 ====================
-\cvsection{\faCogs}{专业技能}
+\section{%
+  \makebox[\widthof{\faCogs}][c]{%
+    \color{CVBlue}\faCogs
+  }\ 专业技能
+}
 
-\begin{itemize}
-  \item \textbf{编程语言：}
-  Python、C。
-  \quad \textbf{英语能力：} CET-6。
+\begin{itemize}[nosep]
+  \item \textbf{编程语言：} Python、C
   \item \textbf{算法方向：}
-  深度学习、目标检测、时序预测、故障诊断、LLM应用。
+  深度学习、目标检测、时序预测、故障诊断、LLM应用
+  \item \textbf{英语能力：} CET-6
 \end{itemize}
 
 % ==================== 荣誉奖项 ====================
-\cvsection{\faTrophy}{荣誉奖项}
+\section{%
+  \makebox[\widthof{\faTrophy}][c]{%
+    \color{CVBlue}\faTrophy
+  }\ 荣誉奖项
+}
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item 2025 浙江大学二等学业优秀奖助金
-  \hfill
-  2021 浙江省大学生数学竞赛三等奖
+  \item 2021 浙江省大学生数学竞赛三等奖
 \end{itemize}
 
 % ==================== 科研成果 ====================
-\cvsection{\faBook}{科研成果}
+\section{%
+  \makebox[\widthof{\faBook}][c]{%
+    \color{CVBlue}\faBook
+  }\ 科研成果
+}
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item 2025.07 中国过程控制会议论文：
   《PatchX-MLP: 一种用于 SCR 入口 NOx 浓度预测的时序预测算法》
 \end{itemize}
